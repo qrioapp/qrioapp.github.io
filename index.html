@@ -219,6 +219,10 @@
       color: var(--primary);
     }
 
+    video {
+  pointer-events: none !important;
+}
+
     /* DELAY */
     .card:nth-child(1){ transition-delay: 0.05s; }
     .card:nth-child(2){ transition-delay: 0.1s; }
@@ -998,7 +1002,7 @@
 
     <div class="video-section">
       <div class="video-box">
-        <video id="video" muted autoplay loop playsinline></video>
+        <video id="video" muted autoplay loop playsinline disablePictureInPicture></video>
       </div>
     </div>
   </section>
@@ -1159,12 +1163,17 @@ const source = document.createElement("source");
 source.type = "video/mp4";
 video.appendChild(source);
 
+let currentSrc = "";
+
 function setVideo() {
-  if (window.matchMedia("(max-width: 540px)").matches) {
-    source.src = "videoformobile.mp4";
-  } else {
-    source.src = "video.mp4";
-  }
+  const newSrc = window.matchMedia("(max-width: 540px)").matches
+    ? "videoformobile.mp4"
+    : "video.mp4";
+
+  if (newSrc === currentSrc) return;
+
+  currentSrc = newSrc;
+  source.src = newSrc;
 
   video.load();
   video.play().catch(() => {});
@@ -1173,8 +1182,8 @@ function setVideo() {
 // init
 setVideo();
 
-// reagowanie na resize
-window.addEventListener("resize", setVideo);
+window.matchMedia("(max-width: 540px)")
+  .addEventListener("change", setVideo);
 </script>
 
 <script>
