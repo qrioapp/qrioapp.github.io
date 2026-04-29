@@ -252,6 +252,7 @@
 
       h1{
         font-size: 1.8rem;
+        margin-top: 7rem;
       }
 
       p{
@@ -508,132 +509,7 @@
   opacity: 1;
   transform: translateY(0);
 }
-.footer{
-  margin-top: 3rem;
-  border-top: 0.0625rem solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(1.5rem);
-}
 
-.footer-container{
-  width: min(70rem, 100%);
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-}
-
-.footer-top{
-  display: flex;
-  justify-content: space-between;
-  gap: 3rem;
-}
-
-.footer-logo{
-  width: 6rem;
-  margin-bottom: 1rem;
-}
-
-.footer-brand p{
-  color: rgba(255,255,255,0.6);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  max-width: 16rem;
-}
-
-.footer-grid{
-  display: flex;
-  gap: 3rem;
-}
-
-/* desktop titles */
-.footer-title{
-  background: none;
-  border: none;
-  color: white;
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  cursor: default;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.footer-content{
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-}
-
-.footer-content a{
-  color: rgba(255,255,255,0.6);
-  font-size: 0.9rem;
-  transition: 0.2s;
-}
-
-.footer-content a:hover{
-  color: #6d5dfc;
-}
-
-.footer-bottom{
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 0.0625rem solid rgba(255,255,255,0.06);
-
-  display: flex;
-  justify-content: space-between;
-
-  color: rgba(255,255,255,0.45);
-  font-size: 0.85rem;
-}
-
-/* ================= MOBILE ================= */
-@media (max-width: 48rem){
-
-  .footer-top{
-    flex-direction: column;
-  }
-
-  .footer-grid{
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .footer-col{
-    border-bottom: 0.0625rem solid rgba(255,255,255,0.08);
-  }
-
-  .footer-title{
-    padding: 1.2rem 0;
-    cursor: pointer;
-    align-items: center;
-  }
-
-  /* plus/minus icon */
-  .icon{
-    transition: 0.3s ease;
-    font-size: 1.2rem;
-  }
-
-  .footer-col.active .icon{
-    transform: rotate(45deg); /* + -> x (minus vibe) */
-  }
-
-  .footer-content{
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-0.5rem);
-    transition: 0.4s ease;
-    padding-bottom: 0;
-  }
-
-  .footer-col.active .footer-content{
-    max-height: 12rem;
-    opacity: 1;
-    transform: translateY(0);
-    padding-bottom: 1rem;
-  }
-}
 @media (min-width: 48rem){
   .icon {
     display: none;
@@ -758,12 +634,322 @@
     color: #000;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.footer-search{
+  margin-top: 6rem;
+  padding: 4rem 1.5rem 2rem;
+
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(1.6rem);
+
+  border-top: 0.0625rem solid rgba(255,255,255,0.08);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* glow background */
+.footer-search::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--primary) 30%, transparent), transparent 70%);
+
+  opacity:0.25;
+  pointer-events:none;
+}
+
+.fs-inner{
+  max-width: 60rem;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  text-align: center;
+}
+
+/* SEARCH BOX */
+.fs-search{
+  display: flex;
+  align-items: center;
+
+  background: rgba(255,255,255,0.04);
+  border: 0.0625rem solid rgba(255,255,255,0.1);
+  border-radius: 1.2rem;
+
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.fs-search:focus-within{
+  border-color: var(--primary);
+  background: rgba(255,255,255,0.06);
+}
+
+/* INPUT */
+.fs-search input{
+  flex: 1;
+  padding: 1.2rem;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: white;
+  font-size: 1rem;
+}
+
+.fs-search input::placeholder{
+  color: rgba(255,255,255,0.4);
+}
+
+.fs-search button{
+  width: 3.5rem;
+  height: 3.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 60%, #000));
+  border: none;
+  cursor: pointer;
+
+  transition: 0.25s ease;
+  position: relative;
+}
+
+/* hover glow */
+.fs-search button:hover{
+  transform: translateY(-0.1rem) scale(1.05);
+  box-shadow: 0 0 1.5rem color-mix(in srgb, var(--primary) 60%, transparent);
+}
+
+/* active click */
+.fs-search button:active{
+  transform: scale(0.95);
+}
+
+.fs-search button img{
+  width: 1.1rem;
+  height: 1.1rem;
+  filter: invert(100%);
+  pointer-events: none;
+}
+
+/* ABOUT */
+.fs-about p{
+  max-width: 28rem;
+  margin: 0 auto;
+
+  font-size: 0.9rem;
+  line-height: 1.6;
+
+  color: rgba(255,255,255,0.55);
+}
+
+/* BOTTOM */
+.fs-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+}
+.fs-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+
+  gap: 1rem;
+}
+
+/* prawa strona */
+.fs-made{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+
+  gap: 1rem;
+}
+
+
+/* MOBILE */
+@media (max-width: 48rem){
+  .fs-bottom{
+    flex-direction: column;
+    text-align: center;
+    gap: 0.6rem;
+  }
+  .fs-made {
+    display: none;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 48rem){
+  .fs-bottom{
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* POPUP */
+.fs-popup{
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(0.6rem);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+
+  z-index: 9999;
+}
+
+.fs-popup.active{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.fs-popup-box{
+  width: min(22rem, 90%);
+  padding: 2rem;
+
+  text-align: center;
+
+  background: #111;
+  border: 0.0625rem solid rgba(255,255,255,0.1);
+  border-radius: 1.2rem;
+}
+
+.fs-popup-box p{
+  font-size: 1.1rem;
+}
+
+.fs-popup-box span{
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.fs-popup-box button{
+  margin-top: 1.2rem;
+
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.7rem;
+
+  border: none;
+  cursor: pointer;
+
+  background: var(--primary);
+  color: white;
+}
+.author-link{
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none !important;
+  position: relative;
+  transition: 0.25s ease;
+}
+
+/* linia też niewidoczna na start */
+.author-link::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 100%;
+  height: 0.0650rem;
+  background: var(--primary);
+
+  opacity: 0;
+  transform: scaleX(0.6);
+  transition: 0.25s ease;
+}
+
+/* dopiero hover = reveal */
+.author-link:hover{
+  color: var(--primary);
+  text-shadow: 0 0 1rem color-mix(in srgb, var(--primary) 60%, transparent);
+}
+
+.author-link:hover::after{
+  opacity: 1;
+  transform: scaleX(1);
+}
     .wkrotce{
       margin-top: auto;
       font-size: 0.875rem;
       font-weight: 600;
       color: #ff5e00 !important;
     }
+
+.card{
+  position: relative;
+}
+
+/* badge */
+.card-badge{
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.7rem;
+
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  background: rgba(255,255,255,0.05);
+  border: 0.0625rem solid rgba(255,255,255,0.1);
+
+  backdrop-filter: blur(1rem);
+  color: rgb(255, 255, 255);
+}
+
+.card-badge img{
+  width: 0.9rem;
+  height: 0.9rem;
+  filter: invert(52%) sepia(98%) saturate(3000%) hue-rotate(-10deg);
+}
 </style>
 </head>
 
@@ -841,9 +1027,17 @@
     </div>
 
     <div class="card">
-      <div class="card-icon"><img src="silownia.png" width="20" height="20" style="filter:invert(100%);"/></div>
+      <div class="card-badge">
+        <img src="warstwa copy.png" alt="warstwa" style="filter:invert(100%);">
+        <span>Zestaw</span>
+      </div>
+      <div class="card-icon">
+        <img src="silownia.png" width="20" height="20" style="filter:invert(100%);"/>
+      </div>
       <h3>Kalkulator kalorii</h3>
-      <p>Oblicz swoje dzienne zapotrzebowanie kaloryczne na podstawie wagi, wzrostu, wieku i aktywności</p>
+      <p>
+        Oblicz swoje dzienne zapotrzebowanie kaloryczne na podstawie wagi, wzrostu, wieku i aktywności
+      </p>
       <a href="" class="wkrotce">Wkrótce</a>
     </div>
 
@@ -855,8 +1049,7 @@
     <div class="text-eyebrow">Fundamenty</div>
 
     <h2>
-      Projekt zaprojektowany z myślą o prostocie,
-      skalowalności i pełnej kontroli.
+      Projekt został stworzony z pasją
     </h2>
 
     <div class="text-sub">
@@ -909,75 +1102,79 @@
   </div>
 
 </section>
-<footer class="footer">
+</main>
+<footer class="footer-search">
 
-  <div class="footer-container">
+  <div class="fs-inner">
 
-    <div class="footer-top">
+    <form class="fs-search" id="fsForm">
+      <input 
+        type="text" 
+        id="fsInput"
+        placeholder="Wyszukaj narzędzie..."
+        autocomplete="off"
+      />
 
-      <div class="footer-brand">
-        <p>
-          Nowoczesna platforma SaaS tworzona z naciskiem na UX, wydajność i prostotę.
-        </p>
-      </div>
+      <button type="submit" aria-label="Szukaj">
+        <img src="search.png" alt="szukaj">
+      </button>
+    </form>
 
-      <div class="footer-grid">
-
-        <div class="footer-col">
-          <button class="footer-title">
-            Kontakt <span class="icon">+</span>
-          </button>
-          <div class="footer-content">
-            <a href="tel:+48123456789">Telefon</a>
-            <a href="https://wa.me/48123456789">WhatsApp</a>
-            <a href="#">Email</a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <button class="footer-title">
-            Legal <span class="icon">+</span>
-          </button>
-          <div class="footer-content">
-            <a href="#">Polityka prywatności</a>
-            <a href="#">Regulamin</a>
-            <a href="#">Cookies</a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <button class="footer-title">
-            Nawigacja <span class="icon">+</span>
-          </button>
-          <div class="footer-content">
-            <a href="#">Home</a>
-            <a href="#">Features</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
-          </div>
-        </div>
-
-      </div>
-
+    <div class="fs-about">
+      <p>
+        Szybkie narzędzia online bez logowania. Minimalizm, wydajność i prywatność w jednym miejscu.
+      </p>
     </div>
 
-    <div class="footer-bottom">
-      <span>© 2026 All rights reserved.</span>
-      <span>Created by <a href="https://gracjan-gs.github.io/" style="color: var(--primary);">Gracjan Śliwiński</a></span>
-    </div>
+<div class="fs-bottom">
+  <span>
+    © 2026 All rights reserved by 
+    <a href="https://gracjan-gs.github.io/" class="author-link">
+      Gracjan Śliwiński
+    </a>
+  </span>
+
+  <span class="fs-made">
+    Zrobione z pasją
+  </span>
+</div>
 
   </div>
 
 </footer>
-</main>
 
+<!-- POPUP -->
+<div class="fs-popup" id="fsPopup">
+  <div class="fs-popup-box">
+    <p>Nie znaleziono narzędzia</p>
+    <span>Spróbuj np. „generator kodów QR”, „generator kodów kreskowych”, „Kompresor obrazów”</span>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
 <script>
-  const video = document.getElementById("video");
-  const source = document.createElement("source");
-  source.src = "export-777777.mp4";
-  source.type = "video/mp4";
-  video.appendChild(source);
+const video = document.getElementById("video");
+
+// tworzymy source
+const source = document.createElement("source");
+source.type = "video/mp4";
+video.appendChild(source);
+
+function setVideo() {
+  if (window.matchMedia("(max-width: 540px)").matches) {
+    source.src = "videoformobile.mp4";
+  } else {
+    source.src = "video.mp4";
+  }
+
   video.load();
+  video.play().catch(() => {});
+}
+
+// init
+setVideo();
+
+// reagowanie na resize
+window.addEventListener("resize", setVideo);
 </script>
 
 <script>
@@ -1029,6 +1226,92 @@ if (btn && nav) {
 
 }
 </script>
+<script>
+const form = document.getElementById("fsForm");
+const input = document.getElementById("fsInput");
+const popup = document.getElementById("fsPopup");
 
+const routes = [
+  {
+    path: "Kodqr.html",
+    keywords: [
+      "qr","qr kod","qrkody","qr code","kod qr","generator qr",
+      "qrcode","qr generator","kodzik qr","qrk","kod qr kod"
+    ]
+  },
+  {
+    path: "kodyKreskowe.html",
+    keywords: [
+      "kreskowy","kreskowe","kod kreskowy","kody kreskowe",
+      "ean","barcode","bar code","kreski","keskowe","kody"
+    ]
+  },
+  {
+    path: "kompresor.html",
+    keywords: [
+      "obraz","obrazy","zdjecie","zdjecia","kompresja",
+      "kompresor","kompresator","kompresacja",
+      "zdjęcia","foto","image","img","zmniejsz"
+    ]
+  }
+];
+
+function normalize(t){
+  return t.toLowerCase()
+    .replace(/ą/g,"a").replace(/ć/g,"c").replace(/ę/g,"e")
+    .replace(/ł/g,"l").replace(/ń/g,"n").replace(/ó/g,"o")
+    .replace(/ś/g,"s").replace(/ż/g,"z").replace(/ź/g,"z")
+    .replace(/[^a-z0-9 ]/g,"")
+    .trim();
+}
+
+function similarity(a,b){
+  let m = 0;
+  for(let i=0;i<Math.min(a.length,b.length);i++){
+    if(a[i]===b[i]) m++;
+  }
+  return m/Math.max(a.length,b.length);
+}
+
+function showPopup(){
+  popup.classList.add("active");
+}
+
+function closePopup(){
+  popup.classList.remove("active");
+}
+
+form.addEventListener("submit",(e)=>{
+  e.preventDefault();
+
+  const v = normalize(input.value);
+
+  let best=null;
+  let score=0;
+
+  routes.forEach(r=>{
+    r.keywords.forEach(k=>{
+      const key = normalize(k);
+
+      if(v.includes(key)){
+        window.location.href = r.path;
+        return;
+      }
+
+      const s = similarity(v,key);
+      if(s>score){
+        score=s;
+        best=r;
+      }
+    });
+  });
+
+  if(score>0.55){
+    window.location.href = best.path;
+  }else{
+    showPopup();
+  }
+});
+</script>
 </body>
 </html>
