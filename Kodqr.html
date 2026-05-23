@@ -197,6 +197,18 @@ button{
   #qr{transform:scale(0.82);}
   input, select{font-size:14px;}
 }
+body {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+body.fade-out {
+  opacity: 0;
+}
 </style>
 </head>
 
@@ -284,10 +296,13 @@ button{
   <input type="file" id="logo" accept="image/png" hidden>
 </div>
 
+<div class="section-title">Rozmiar logotypu</div>
+<input type="range" id="logoSize" min="0.1" max="0.5" step="0.05" value="0.2">
+
 <div class="section-title">Rozmiar</div>
 <input type="range" id="size" min="200" max="700" value="320">
 
-<button onclick="download()">Pobierz QR</button>
+<button class="btn" onclick="startFlow()">Pobierz PNG</button>
 
 </div>
 
@@ -298,6 +313,211 @@ button{
 </div>
 
 </div>
+
+
+<div class="dl-overlay" id="dlPopup">
+  <div class="dl-modal">
+
+    <div class="dl-header">
+      <div class="dl-icon">⬇</div>
+      <div>
+        <h3>Pobieranie pliku</h3>
+        <p id="dlStage">Start...</p>
+      </div>
+    </div>
+
+    <div class="dl-bar-wrap">
+      <div class="dl-bar" id="dlBar"></div>
+    </div>
+
+    <div class="dl-percent" id="dlPercent">0%</div>
+
+    <button class="dl-cancel" onclick="cancelDownload()">
+      Anuluj pobieranie
+    </button>
+
+  </div>
+</div>
+
+<style>.dl-overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(0,0,0,0.65);
+  backdrop-filter: blur(1.2rem);
+
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:9999;
+}
+
+.dl-overlay.active{
+  opacity:1;
+  pointer-events:all;
+}
+
+.dl-modal{
+  width:min(26rem, 92%);
+  padding:1.6rem;
+  border-radius:1.4rem;
+
+  background:rgba(20,20,20,0.85);
+  border:1px solid rgba(255,255,255,0.08);
+  color:#fff;
+}
+
+.dl-header{
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  margin-bottom:1.2rem;
+}
+
+.dl-icon{
+  width:2.8rem;
+  height:2.8rem;
+  border-radius:0.9rem;
+
+  display:grid;
+  place-items:center;
+
+  background:rgba(124,108,255,0.15);
+  border:1px solid rgba(124,108,255,0.35);
+
+  font-size:1.3rem;
+}
+
+.dl-header h3{
+  margin:0;
+  font-size:1.05rem;
+}
+
+.dl-header p{
+  margin:0;
+  font-size:0.8rem;
+  color:rgba(255,255,255,0.6);
+}
+
+.dl-bar-wrap{
+  width:100%;
+  height:0.7rem;
+  background:rgba(255,255,255,0.08);
+  border-radius:999rem;
+  overflow:hidden;
+}
+
+.dl-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#7c6cff,#a18bff);
+  border-radius:999rem;
+  transition:width .15s ease;
+}
+
+.dl-percent{
+  margin-top:0.8rem;
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.7);
+}
+
+.dl-cancel{
+  margin-top:1.2rem;
+  width:100%;
+  padding:0.85rem;
+
+  border-radius:0.9rem;
+  border:1px solid rgba(255,255,255,0.1);
+
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+
+  cursor:pointer;
+  transition:.2s;
+}
+
+.dl-cancel:hover{
+  background:rgba(255,255,255,0.08);
+}</style>
+
+<script>
+let progress = 0;
+let timer = null;
+let cancelled = false;
+
+function download(){
+  startFlow();
+}
+
+function startFlow(){
+  progress = 0;
+  cancelled = false;
+
+  document.getElementById("dlPopup").classList.add("active");
+
+  timer = setInterval(() => {
+    if(cancelled) return;
+
+    // FAZY PROGRESSU
+    if(progress < 20){
+      progress += Math.random()*3;
+      setStage("Startowanie...");
+    }
+    else if(progress < 60){
+      progress += Math.random()*2.5;
+      setStage("Przetwarzanie pliku...");
+    }
+    else if(progress < 90){
+      progress += Math.random()*1.5;
+      setStage("Finalizacja...");
+    }
+    else{
+      progress += Math.random()*0.8;
+      setStage("Dopracowywanie jakości...");
+    }
+
+    if(progress >= 100){
+      progress = 100;
+      update();
+      clearInterval(timer);
+      setTimeout(realDownload, 250);
+      return;
+    }
+
+    update();
+  }, 80);
+}
+
+function update(){
+  document.getElementById("dlBar").style.width = progress + "%";
+  document.getElementById("dlPercent").innerText = Math.floor(progress) + "%";
+}
+
+function setStage(text){
+  document.getElementById("dlStage").innerText = text;
+}
+
+function cancelDownload(){
+  cancelled = true;
+  clearInterval(timer);
+  document.getElementById("dlPopup").classList.remove("active");
+}
+
+function realDownload(){
+
+  document.getElementById("dlPopup")
+    .classList.remove("active");
+
+  qr.download({
+    name:"qr-code",
+    extension:"png"
+  });
+
+}
+</script>
 
 <script>
 
@@ -439,6 +659,104 @@ function download(){
 qr.download({name:"qr",extension:"png"});
 }
 
+// === LOGO SIZE SUPPORT ===
+
+// jeśli nie masz jeszcze slidera w HTML, możesz go też dodać ręcznie:
+// <input type="range" id="logoSize" min="0.1" max="0.5" step="0.05" value="0.25">
+
+function updateQR(){
+
+  const get=id=>document.getElementById(id)?.value?.trim()||"";
+
+  let t=type.value;
+  let text="";
+
+  if(t==="url"){
+    let v=get("text");
+    if(!v) v="https://example.com";
+    if(!v.startsWith("http")) v="https://"+v;
+    text=v;
+  }
+
+  if(t==="text") text=get("text")||"Hello";
+  if(t==="phone") text="tel:"+get("phone");
+  if(t==="email") text="mailto:"+get("email");
+  if(t==="sms") text="sms:"+get("sms");
+  if(t==="wifi") text=`WIFI:T:WPA;S:${get("ssid")};P:${get("pass")};;`;
+
+  let grad;
+  if(gradient.value!=="none"){
+    grad={
+      type:gradient.value,
+      colorStops:[
+        {offset:0,color:colorInput.value},
+        {offset:1,color:color2Input.value}
+      ]
+    };
+  }
+
+  let img="";
+  if(fileInput.files[0]){
+    img=URL.createObjectURL(fileInput.files[0]);
+  }
+
+  // domyślna wartość jeśli slider nie istnieje
+  let logoSizeValue = 0.25;
+  const logoSlider = document.getElementById("logoSize");
+  if(logoSlider) logoSizeValue = +logoSlider.value;
+
+  qr.update({
+    width:+size.value,
+    height:+size.value,
+    data:text,
+    image:img,
+
+    // 🔥 KLUCZOWA CZĘŚĆ — rozmiar logo
+    imageOptions:{
+      crossOrigin:"anonymous",
+      margin:4,
+      imageSize:logoSizeValue
+    },
+
+    dotsOptions:{
+      type:dots.value,
+      color:grad?undefined:colorInput.value,
+      gradient:grad
+    },
+    cornersSquareOptions:{
+      type:corners.value,
+      color:colorInput.value
+    },
+    cornersDotOptions:{
+      type:cornersDot.value,
+      color:colorInput.value
+    },
+    backgroundOptions:{
+      color:bgInput.value
+    }
+  });
+}
+window.addEventListener("load", () => {
+  document.body.classList.add("loaded");
+});
+
+// FADE OUT przy kliknięciu linku
+document.querySelectorAll("a[href]").forEach(link => {
+  link.addEventListener("click", function(e) {
+    const href = this.getAttribute("href");
+
+    // pomijamy anchor (#) i nowe karty
+    if (href.startsWith("#") || this.target === "_blank") return;
+
+    e.preventDefault();
+
+    document.body.classList.add("fade-out");
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 400);
+  });
+});
 </script>
 
 </body>
