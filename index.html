@@ -89,7 +89,7 @@
       line-height: 1.1;
       margin-bottom: var(--s3);
       letter-spacing: 0em;
-      margin-top: 12rem;
+      margin-top: 3rem;
     }
 
     p{
@@ -149,6 +149,7 @@
 
       -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent);
       mask-image: linear-gradient(to bottom, black 70%, transparent);
+      text-align: left !important;
     }
 
     .card{
@@ -256,7 +257,7 @@
 
       h1{
         font-size: 1.8rem;
-        margin-top: 7rem;
+        margin-top: 1rem;
       }
 
       p{
@@ -304,6 +305,7 @@
 
   position: relative;
   overflow: hidden;
+  text-align: left !important;
     transition: 0.3s ease-in-out;
 
 }
@@ -958,20 +960,159 @@
   height: 0.9rem;
   filter: invert(52%) sepia(98%) saturate(3000%) hue-rotate(-10deg);
 }
-</style>
+
+.tools-more{
+  grid-column: 1 / -1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1rem 0 2rem;
+}
+
+/* BUTTON */
+.tools-more-btn{
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  padding: 1.1rem 1.6rem;
+
+  border-radius: 999rem;
+
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  background: rgba(255,255,255,0.04);
+  border: 0.0625rem solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(1.2rem);
+
+  overflow: hidden;
+
+  transition: 0.35s ease;
+}
+
+/* subtelny glow layer */
+.tools-more-btn::before{
+  content:"";
+  position:absolute;
+  inset:-2rem;
+
+  background: radial-gradient(
+    circle at 20% 20%,
+    color-mix(in srgb, rgb(85, 0, 255) 35%, transparent),
+    transparent 60%
+  );
+
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+/* hover */
+.tools-more-btn:hover{
+  transform: translateY(-0.2rem);
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+}
+
+.tools-more-btn:hover::before{
+  opacity: 1;
+}
+
+/* ikony */
+.tools-more-icon,
+.tools-more-arrow{
+  opacity: 0.8;
+  transition: 0.3s ease;
+}
+
+.tools-more-btn:hover .tools-more-arrow{
+  transform: translateX(0.25rem);
+}
+
+.tools-more-btn:hover .tools-more-icon{
+  transform: rotate(10deg) scale(1.1);
+}
+
+/* MOBILE */
+@media (max-width:48rem){
+  .tools-more-btn{
+    width: 100%;
+    max-width: 22rem;
+    justify-content: center;
+  }
+}
+.hero-badge{
+margin-top: 3rem !important;
+}
+.hero-badge{
+  width: fit-content;
+
+  margin: 0 auto 1.4rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  padding: 0.7rem 1rem;
+
+  border-radius: 999rem;
+
+  background: rgba(34,197,94,0.08);
+
+  border: 0.0625rem solid rgba(34,197,94,0.22);
+
+  color: #86efac;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+
+  backdrop-filter: blur(1rem);
+
+  transition: 0.3s ease;
+}
+
+.hero-badge:hover{
+  background: rgba(34,197,94,0.12);
+  border-color: rgba(34,197,94,0.35);
+}
+
+.hero-badge-icon{
+  width: 1.2rem;
+  height: 1.2rem;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 999rem;
+
+  background: rgba(34,197,94,0.18);
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  color: #4ade80;
+}
+</style>git
 </head>
 
 <body>
 
 <header>
   <div class="container nav">
-    <img src="QrioLogoBgOffWhite.png" class="navbar-logo" alt="logo"/>
+    <img src="l.png" class="navbar-logo" alt="logo"/>
 
     <nav>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Contact</a>
+      <a href="#start">Start</a>
+      <a href="#tools">Wszyskie narzędzia</a>
+      <a href="#cel">Cel</a>
+      <a href="#info">Informacje</a>
     </nav>
     <div class="menu-btn" id="menuBtn">
   <span></span>
@@ -984,19 +1125,26 @@
 
 
 <div class="mobile-nav" id="mobileNav">
-  <a href="#">Home</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Contact</a>
+  <a href="#start">Start</a>
+  <a href="#tools">Wszyskie narzędzia</a>
+  <a href="#cel">Cel</a>
+  <a href="#info">Informacje</a>
 </div>
 
-<main class="container">
+<main class="container" id="start">
+<section class="hero">
 
+  <div class="hero-badge">
+    <span class="hero-badge-icon">
+      ✓
+    </span>
+    Wszystkie narzędzia darmowe
+  </div>
   <section class="hero">
-    <h1>Narzędzie online do szybkich i prostych zadań</h1>
+    <h1>Wszystkie narzędzia w jednym miejscu</h1>
 
     <p>
-      Szybkie i bezpieczne narzędzia online bez logowania i instalacji. Twórz QR kody i korzystaj z prostych narzędzi w kilka sekund, które ułatwiają życie
+      Twórz QR kody i korzystaj z prostych narzędzi w kilka sekund, które ułatwiają pracę to właśnie <span style="color: var(--primary);">Gtool</span>
     </p>
 
     <a class="btn" href="Kodqr.html">
@@ -1011,7 +1159,7 @@
     </div>
   </section>
 
-  <section class="cards-section">
+  <section class="cards-section" id="tools">
 
     <div class="card">
       <div class="card-icon"><img src="qqqrczebelemole.png" width="20" height="20" style="filter:invert(100%);"/></div>
@@ -1048,9 +1196,14 @@
       </p>
       <a href="" class="wkrotce">Wkrótce</a>
     </div>
-
+<div class="tools-more">
+  <a href="wszystko.html" class="tools-more-btn">
+    <span>Zobacz wszystkie narzędzia</span>
+    <span class="tools-more-arrow">→</span>
+  </a>
+</div>
   </section>
-<section class="text-section">
+<section class="text-section" id="cel">
 
   <div class="text-box">
 
@@ -1108,7 +1261,7 @@
 
 </section>
 </main>
-<footer class="footer-search">
+<footer class="footer-search" id="info">
 
   <div class="fs-inner">
 
@@ -1321,6 +1474,24 @@ form.addEventListener("submit",(e)=>{
   }else{
     showPopup();
   }
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const target = document.querySelector(link.getAttribute("href"));
+    if (!target) return;
+
+    const offset = 90; // wysokość headera
+
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
+    window.scrollTo({
+      top,
+      behavior: "smooth"
+    });
+  });
 });
 </script>
 </body>
